@@ -31,7 +31,7 @@
 #     #     docker run --rm --network host mlflow-app pytest tests/
 
 
-name: MLOps CI Pipeline
+name: MLOps CICD Pipeline
 
 on:
   push:
@@ -87,14 +87,14 @@ jobs:
         source: "mlflow-app.tar.gz"
         target: "~/"
 
-    - name: SSH into EC2 and deploy container
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.EC2_HOST }}
-        username: ${{ secrets.EC2_USER }}
-        key: ${{ secrets.EC2_SSH_KEY }}
-        script: |
-          docker load < mlflow-app.tar.gz
-          docker stop mlflow-api || true
-          docker rm mlflow-api || true
-          docker run -d -p 5000:5000 -p 8000:8000 --name mlflow-api mlflow-app
+    # - name: SSH into EC2 and deploy container
+    #   uses: appleboy/ssh-action@master
+    #   with:
+    #     host: ${{ secrets.EC2_HOST }}
+    #     username: ${{ secrets.EC2_USER }}
+    #     key: ${{ secrets.EC2_SSH_KEY }}
+    #     script: |
+    #       docker load < mlflow-app.tar.gz
+    #       docker stop mlflow-api || true
+    #       docker rm mlflow-api || true
+    #       docker run -d -p 5000:5000 -p 8000:8000 --name mlflow-api mlflow-app
