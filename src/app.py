@@ -1,9 +1,13 @@
 from flask import Flask, request, jsonify
 import joblib
+import os
 import pandas as pd
 
 app = Flask(__name__)
-model = joblib.load("model.pkl")
+# Load model from absolute path relative to current file
+model_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'model.pkl'))
+model = joblib.load(model_path)
+# model = joblib.load("model.pkl")
 
 @app.route("/predict", methods=["POST"])
 def predict():
