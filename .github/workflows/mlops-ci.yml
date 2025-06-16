@@ -20,7 +20,7 @@ jobs:
 
     - name: Run pytest inside Docker container
       run: |
-        docker run --rm mlflow-app:latest pytest tests/
+        docker run --rm -w /app mlflow-app:latest pytest tests/
 
 
 # name: MLOps CI Pipeline
