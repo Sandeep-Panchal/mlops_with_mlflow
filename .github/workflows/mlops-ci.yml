@@ -17,6 +17,10 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
 
+    - name: Test with pytest
+      run: |
+        pytest
+
 # name: MLOps CI Pipeline
 
 # on:
