@@ -27,7 +27,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-python /app/src/train.py
+RUN python /app/src/train.py
 
 # EXPOSE 5000 # MLflow
 # EXPOSE 8000 # Flask
