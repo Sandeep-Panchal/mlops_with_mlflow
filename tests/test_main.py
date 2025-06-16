@@ -1,6 +1,10 @@
 import sys
 sys.path.append("../")
 
+import os
+
+print(os.listdir())
+print(os.listdir("../"))
 import json
 
 from src.app import app
