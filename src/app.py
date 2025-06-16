@@ -18,4 +18,5 @@ def predict():
     return jsonify({"prediction": prediction.tolist()})
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8000)
+    # app.run(host="0.0.0.0", port=8000)
+    app.run(host="ec2-3-141-45-40.us-east-2.compute.amazonaws.com", port=8000)
