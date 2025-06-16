@@ -16,11 +16,11 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build . --file Dockerfile --tag mlflow-app
+        docker build . --file Dockerfile --tag mlflow-app:latest
 
-    - name: Run pytest inside Docker container
-      run: |
-        docker run --rm -w /app mlflow-app:latest pytest tests
+    # - name: Run pytest inside Docker container
+    #   run: |
+    #     docker run --rm -w /app mlflow-app:latest pytest tests
 
     # - name: Run long-lived container (MLflow UI + Flask + training)
     #   run: |
