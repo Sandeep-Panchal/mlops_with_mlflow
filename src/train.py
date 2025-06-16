@@ -46,7 +46,7 @@ class ModelTraining:
     
     def run_mlflow(self):
 
-        uri = "http://ec2-3-141-45-40.us-east-2.compute.amazonaws.com/5000/"
+        uri = "http://ec2-18-219-74-243.us-east-2.compute.amazonaws.com/5000/"
         # uri = "http://127.0.0.1:5000"
         mlflow.set_tracking_uri(uri=uri)
         # mlflow.set_tracking_uri("http://host.docker.internal:5000")
