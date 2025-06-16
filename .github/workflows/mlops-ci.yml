@@ -1,0 +1,86 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+
+# name: MLOps CI Pipeline
+
+# on:
+#   push:
+#     branches: [main]
+
+# jobs:
+#   build-and-test:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v3
+
+#     - name: Set up Python
+#       uses: actions/setup-python@v4
+#       with:
+#         python-version: '3.10'
+
+#     - name: Install dependencies
+#       run: |
+#         python -m pip install --upgrade pip
+#         pip install -r requirements.txt
+#         pip install pytest
+
+#     - name: Run tests
+#       run: |
+#         pytest tests/
+
+#     - name: Build Docker image
+#       run: |
+#         docker build -t mlflow-app .
+
+#   deploy:
+#     runs-on: ubuntu-latest
+#     needs: build-and-test
+#     if: github.ref == 'refs/heads/main'
+
+#     steps:
+#     - name: Checkout repo
+#       uses: actions/checkout@v3
+
+#     - name: Build Docker image for transfer
+#       run: |
+#         docker build -t mlflow-app .
+#         docker save mlflow-app | gzip > mlflow-app.tar.gz
+
+#     - name: Upload Docker image to EC2 via SCP
+#       uses: appleboy/scp-action@master
+#       with:
+#         host: ${{ secrets.EC2_HOST }}
+#         username: ${{ secrets.EC2_USER }}
+#         key: ${{ secrets.EC2_SSH_KEY }}
+#         source: "mlflow-app.tar.gz"
+#         target: "~/"
+
+#     - name: SSH into EC2 and deploy container
+#       uses: appleboy/ssh-action@master
+#       with:
+#         host: ${{ secrets.EC2_HOST }}
+#         username: ${{ secrets.EC2_USER }}
+#         key: ${{ secrets.EC2_SSH_KEY }}
+#         script: |
+#           docker load < mlflow-app.tar.gz
+#           docker stop mlflow-api || true
+#           docker rm mlflow-api || true
+#           docker run -d -p 5000:5000 -p 8000:8000 --name mlflow-api mlflow-app
